@@ -7,12 +7,13 @@ function saveBooks() {
 }
 
 function loadBooks() {
-  // if (localStorageKey !== undefined) {
-  //   localStorage.setItem(localStorageKey, []);
-  // } else {
+  if (localStorage.getItem(localStorageKey) === null) {
+    localStorage.setItem(localStorageKey, []);
+  } else {
     const data = localStorage.getItem(localStorageKey);
     books = JSON.parse(data);
   }
+}
 
 function renderBooks() {
   const incompleteBooks = document.getElementById("incompleteBookList");
@@ -23,7 +24,8 @@ function renderBooks() {
 
   const data = JSON.parse(localStorage.getItem(localStorageKey));
 
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < data?.length; i++) {
+    //listBooks
     const container = document.createElement("div");
     container.setAttribute("data-bookid", data[i].id);
     container.setAttribute("data-testid", "bookItem");
@@ -40,14 +42,35 @@ function renderBooks() {
     year.setAttribute("data-testid", "bookItemYear");
     year.textContent = `Tahun: ${data[i].year}`;
 
-    container.appendChild(title);
-    container.appendChild(author);
-    container.appendChild(year);
-    completeBooks.appendChild(container);
-    incompleteBooks.appendChild(container);
+    //buttons
+    const buttonContainer = document.createElement("div");
+
+    const completeBtn = document.createElement("button");
+    completeBtn.setAttribute("data-testid", "bookItemIsCompleteButton");
+    completeBtn.textContent = data[i].isComplete
+      ? "Belum selesai dibaca"
+      : "Selesai dibaca";
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.setAttribute("data-testid", "bookItemDeleteButton");
+    deleteBtn.textContent = "Hapus Buku";
+
+    const editBtn = document.createElement("button");
+    editBtn.setAttribute("data-testid", "bookItemEditButton");
+    editBtn.textContent = "Edit Buku";
+
+    container.append(title, author, year, buttonContainer, buttonContainer);
+    buttonContainer.append(completeBtn, deleteBtn, editBtn);
+
+    if (data[i].isComplete === true) {
+      completeBooks.appendChild(container);
+    } else {
+      incompleteBooks.appendChild(container);
+    }
   }
 }
 
+renderBooks();
 const addBooks = document.getElementById("bookForm");
 addBooks.addEventListener("submit", function (event) {
   event.preventDefault();
