@@ -23,7 +23,6 @@ function renderBooks() {
   completeBooks.innerHTML = "";
 
   const data = JSON.parse(localStorage.getItem(localStorageKey));
-
   for (let i = 0; i < data?.length; i++) {
     //listBooks
     const container = document.createElement("div");
@@ -67,6 +66,12 @@ function renderBooks() {
     } else {
       incompleteBooks.appendChild(container);
     }
+
+    completeBtn.addEventListener("click", function () {
+      // const bookElement = document.querySelector(`[data-bookid="${data[i].id}"]`);
+      books.find(loadBooks)
+      console.log(books);
+    });
   }
 }
 
