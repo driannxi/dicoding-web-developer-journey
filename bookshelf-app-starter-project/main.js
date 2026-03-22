@@ -7,13 +7,13 @@ function saveBooks() {
 }
 
 function loadBooks() {
-  if (localStorage.getItem(localStorageKey) === null) {
-    localStorage.setItem(localStorageKey, []);
-  } else {
+  // if (localStorage.getItem(localStorageKey) === null) {
+  //   localStorage.setItem(localStorageKey, JSON.stringify([]));
+  // } else {
     const data = localStorage.getItem(localStorageKey);
     books = JSON.parse(data);
   }
-}
+// }
 
 function renderBooks() {
   const incompleteBooks = document.getElementById("incompleteBookList");
@@ -22,31 +22,32 @@ function renderBooks() {
   incompleteBooks.innerHTML = "";
   completeBooks.innerHTML = "";
 
-  const data = JSON.parse(localStorage.getItem(localStorageKey));
-  for (let i = 0; i < data?.length; i++) {
+  const data = localStorage.getItem(localStorageKey);
+  books = JSON.parse(data);
+  for (let i = 0; i < books?.length; i++) {
     //listBooks
     const container = document.createElement("div");
-    container.setAttribute("data-bookid", data[i].id);
+    container.setAttribute("data-bookid", books[i].id);
     container.setAttribute("data-testid", "bookItem");
 
     const title = document.createElement("h3");
     title.setAttribute("data-testid", "bookItemTitle");
-    title.textContent = data[i].title;
+    title.textContent = books[i].title;
 
     const author = document.createElement("p");
     author.setAttribute("data-testid", "bookItemAuthor");
-    author.textContent = `Penulis: ${data[i].author}`;
+    author.textContent = `Penulis: ${books[i].author}`;
 
     const year = document.createElement("p");
     year.setAttribute("data-testid", "bookItemYear");
-    year.textContent = `Tahun: ${data[i].year}`;
+    year.textContent = `Tahun: ${books[i].year}`;
 
     //buttons
     const buttonContainer = document.createElement("div");
 
     const completeBtn = document.createElement("button");
     completeBtn.setAttribute("data-testid", "bookItemIsCompleteButton");
-    completeBtn.textContent = data[i].isComplete
+    completeBtn.textContent = books[i].isComplete
       ? "Belum selesai dibaca"
       : "Selesai dibaca";
 
@@ -68,14 +69,17 @@ function renderBooks() {
     }
 
     completeBtn.addEventListener("click", function () {
-      // const bookElement = document.querySelector(`[data-bookid="${data[i].id}"]`);
-      books.find(loadBooks)
-      console.log(books);
+      const data = localStorage.getItem(localStorageKey);
+      books = JSON.parse(data);
+      let selectBooks = books.find((user) => user.id === 1774098217686);
+      selectBooks = !selectBooks.isComplete;
+
+      saveBooks();
     });
   }
 }
 
-renderBooks();
+// renderBooks();
 const addBooks = document.getElementById("bookForm");
 addBooks.addEventListener("submit", function (event) {
   event.preventDefault();
