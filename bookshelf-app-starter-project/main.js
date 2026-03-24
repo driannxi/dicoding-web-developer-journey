@@ -79,7 +79,11 @@ function renderBooks() {
     });
 
     deleteBtn.addEventListener("click", function () {
-      console.log("hallo");
+      const getId = books[i].id;
+      books = books.filter((book) => book.id !== getId);
+
+      saveBooks();
+      renderBooks();
     });
   }
 }
@@ -91,7 +95,7 @@ addBooks.addEventListener("submit", function (event) {
 
   const title = document.getElementById("bookFormTitle").value;
   const author = document.getElementById("bookFormAuthor").value;
-  const year = Number(document.getElementById("bookFormYear").value);
+  const year = document.getElementById("bookFormYear").value;
   const isComplete = document.getElementById("bookFormIsComplete").checked;
 
   const newBook = {
