@@ -7,13 +7,14 @@ function saveBooks() {
 }
 
 function loadBooks() {
-  // if (localStorage.getItem(localStorageKey) === null) {
-  //   localStorage.setItem(localStorageKey, JSON.stringify([]));
-  // } else {
+  if (localStorage.getItem(localStorageKey) === null) {
+    localStorage.setItem(localStorageKey, JSON.stringify([]));
+    books = [];
+  } else {
     const data = localStorage.getItem(localStorageKey);
     books = JSON.parse(data);
   }
-// }
+}
 
 function renderBooks() {
   const incompleteBooks = document.getElementById("incompleteBookList");
@@ -59,27 +60,31 @@ function renderBooks() {
     editBtn.setAttribute("data-testid", "bookItemEditButton");
     editBtn.textContent = "Edit Buku";
 
-    container.append(title, author, year, buttonContainer, buttonContainer);
+    container.append(title, author, year, buttonContainer);
     buttonContainer.append(completeBtn, deleteBtn, editBtn);
 
-    if (data[i].isComplete === true) {
+    if (books[i].isComplete === true) {
       completeBooks.appendChild(container);
     } else {
       incompleteBooks.appendChild(container);
     }
 
     completeBtn.addEventListener("click", function () {
-      const data = localStorage.getItem(localStorageKey);
-      books = JSON.parse(data);
-      let selectBooks = books.find((user) => user.id === 1774098217686);
-      selectBooks = !selectBooks.isComplete;
+      const getId = books[i].id;
+      let selectBooks = books.find((book) => book.id === getId);
+      selectBooks.isComplete = !selectBooks.isComplete;
 
       saveBooks();
+      renderBooks();
+    });
+
+    deleteBtn.addEventListener("click", function () {
+      console.log("hallo");
     });
   }
 }
 
-// renderBooks();
+renderBooks();
 const addBooks = document.getElementById("bookForm");
 addBooks.addEventListener("submit", function (event) {
   event.preventDefault();
