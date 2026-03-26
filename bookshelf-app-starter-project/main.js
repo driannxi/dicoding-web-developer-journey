@@ -44,7 +44,7 @@ function renderBooks() {
     year.textContent = `Tahun: ${books[i].year}`;
 
     //buttons
-    const buttonContainer = document.createElement("div");
+    const buttonContainer = document.createElement("div"); 
 
     const completeBtn = document.createElement("button");
     completeBtn.setAttribute("data-testid", "bookItemIsCompleteButton");
@@ -95,7 +95,7 @@ addBooks.addEventListener("submit", function (event) {
 
   const title = document.getElementById("bookFormTitle").value;
   const author = document.getElementById("bookFormAuthor").value;
-  const year = document.getElementById("bookFormYear").value;
+  const year = Number(document.getElementById("bookFormYear").value);
   const isComplete = document.getElementById("bookFormIsComplete").checked;
 
   const newBook = {
