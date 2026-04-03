@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 class NoteInput extends React.Component {
   constructor(props) {
@@ -6,9 +6,9 @@ class NoteInput extends React.Component {
 
     this.state = {
       // TODO [Basic] kelola nilai title sebagai controlled input.
-      title: '',
+      title: "",
       // TODO [Basic] kelola nilai body sebagai controlled textarea.
-      body: ''
+      body: "",
     };
 
     this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this);
@@ -19,12 +19,12 @@ class NoteInput extends React.Component {
   onTitleChangeEventHandler(event) {
     // TODO [Basic] update state dengan nilai event.target.value.
     // TODO [Skilled] batasi judul maksimal 50 karakter dan tampilkan peringatan saat sisa karakter < 10.
-    console.warn('[TODO] Handle title change', event.target.value);
+    console.warn("[TODO] Handle title change", event.target.value);
   }
 
   onBodyChangeEventHandler(event) {
     // TODO [Basic] update state body agar textarea menjadi controlled component.
-    console.warn('[TODO] Handle body change', event.target.value);
+    console.warn("[TODO] Handle body change", event.target.value);
   }
 
   onSubmitEventHandler(event) {
@@ -32,7 +32,7 @@ class NoteInput extends React.Component {
 
     // TODO [Basic] panggil props.addNote dengan data title & body dari state, lalu reset form.
     // TODO [Advanced] tolak submit ketika body kurang dari 10 karakter dan tampilkan pesan error.
-    console.warn('[TODO] Submit note', this.state);
+    console.warn("[TODO] Submit note", this.state);
   }
 
   render() {

@@ -1,7 +1,7 @@
-import React from 'react';
-import { getInitialData } from '../utils';
-import NoteInput from './NoteInput';
-import NotesList from './NotesList';
+import React from "react";
+import { getInitialData } from "../utils";
+import NoteInput from "./NoteInput";
+import NotesList from "./NotesList";
 
 class App extends React.Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class App extends React.Component {
 
     this.state = {
       // TODO [Basic] simpan data catatan dari util getInitialData supaya daftar awal langsung tampil.
-      notes: null,
+      notes: getInitialData(),
 
       // TODO [Skilled] sediakan state untuk kata kunci pencarian.
     };
@@ -23,26 +23,26 @@ class App extends React.Component {
   onAddNoteHandler({ title, body }) {
     // TODO [Basic] tambahkan catatan baru ke state.notes gunakan spread operator dan +new Date() sebagai id.
     // TODO [Advanced] setelah menambahkan, pastikan catatan baru muncul pada daftar aktif.
-    console.warn('[TODO] Implement onAddNoteHandler', { title, body });
+    console.warn("[TODO] Implement onAddNoteHandler", { title, body });
   }
 
   onDeleteHandler(id) {
     // TODO [Basic] gunakan array.filter untuk menghapus catatan berdasarkan id.
-    console.warn('[TODO] Implement onDeleteHandler', { id });
+    console.warn("[TODO] Implement onDeleteHandler", { id });
   }
 
   onArchiveHandler(id) {
     // TODO [Advanced] gunakan array.map untuk toggle nilai archived catatan sesuai id dan pisahkan daftar aktif/arsip.
-    console.warn('[TODO] Implement onArchiveHandler', { id });
+    console.warn("[TODO] Implement onArchiveHandler", { id });
   }
 
   onSearchHandler(keyword) {
     // TODO [Skilled] simpan keyword ke state dan manfaatkan untuk memfilter catatan.
-    console.warn('[TODO] Implement onSearchHandler', { keyword });
+    console.warn("[TODO] Implement onSearchHandler", { keyword });
   }
 
   render() {
-    const { notes, searchKeyword } = this.state;
+    const { notes, keyword } = this.state;
 
     // TODO [Skilled] filter catatan berdasarkan searchKeyword (case-insensitive).
     const filteredNotes = notes;
