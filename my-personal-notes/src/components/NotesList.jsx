@@ -21,13 +21,7 @@ function NotesList({ notes, onDelete, onArchive, dataTestId = "notes-list" }) {
     <div className="notes-list" data-testid={dataTestId}>
       <ul>
         {notes.map((note) => {
-          return (
-            <NoteItem
-              key={note.id}
-              title={note.title}
-              body={note.body}
-            ></NoteItem>
-          );
+          return <NoteItem key={note.id} note={note}></NoteItem>;
         })}
       </ul>
       {/* TODO [Basic] gunakan array.map untuk merender NoteItem untuk setiap catatan. */}
