@@ -1,7 +1,10 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 function DetailNote() {
-  return <h1>this is detail note</h1>;
+  const { id } = useParams();
+
+  return <p>{id}</p>;
 }
 
 export default DetailNote;
