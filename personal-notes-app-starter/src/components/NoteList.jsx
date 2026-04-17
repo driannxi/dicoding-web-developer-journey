@@ -1,6 +1,5 @@
 import React from "react";
 import NoteItem from "./NoteItem";
-import DetailNote from "../pages/DetailNote";
 
 function NoteList({ notes }) {
   return (
