@@ -43,7 +43,6 @@ class NoteNewPage extends React.Component {
           onChange={this.noteChange}
         ></input>
         <button type="submit">
-          <Link to={`/`}>halloo</Link>
           klikkkk
         </button>
       </form>
