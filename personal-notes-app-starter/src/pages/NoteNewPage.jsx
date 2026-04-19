@@ -31,7 +31,7 @@ class NoteNewPage extends React.Component {
           placeholder="Title"
           name="title"
           type="text"
-          value={this.state.titles}
+          value={this.state.title}
           onChange={this.noteChange}
         ></input>
         <input
@@ -39,11 +39,11 @@ class NoteNewPage extends React.Component {
           placeholder="Notes"
           name="body"
           type="text"
-          value={this.state.bodys}
+          value={this.state.body}
           onChange={this.noteChange}
         ></input>
         <button type="submit">
-          {/* <Link to={`/`}>halloo</Link> */}
+          <Link to={`/`}>halloo</Link>
           klikkkk
         </button>
       </form>

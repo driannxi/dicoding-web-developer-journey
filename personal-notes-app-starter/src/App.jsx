@@ -16,9 +16,11 @@ class App extends React.Component {
   }
 
   Add = ({ title, body }) => {
-    this.setState((prevState) => {
+    addNote({ title, body });
+
+    this.setState(() => {
       return {
-        notes: addNote({ title, body }),
+        notes: getAllNotes(),
       };
     });
   };
