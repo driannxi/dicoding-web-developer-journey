@@ -9,6 +9,7 @@ import { deleteNote } from "./utils/local-data";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import { getUserLogged, putAccessToken } from "./utils/network-data";
+import Navigation from "./components/Navigation";
 
 class App extends React.Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class App extends React.Component {
     };
 
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
+    this.onLogout = this.onLogout.bind(this);
   }
 
   async onLoginSuccess({ accessToken }) {
@@ -31,6 +33,15 @@ class App extends React.Component {
         authedUser: data,
       };
     });
+  }
+
+  onLogout() {
+    this.setState(() => {
+      return {
+        authedUser: null,
+      };
+    });
+    putAccessToken("");
   }
 
   async componentDidMount() {
@@ -91,6 +102,10 @@ class App extends React.Component {
       <div className="app-container">
         <header className="header">
           <h1>Note App</h1>
+          <Navigation
+            logout={this.onLogout}
+            name={this.state.authedUser.name}
+          />
         </header>
         <main>
           <Routes>
