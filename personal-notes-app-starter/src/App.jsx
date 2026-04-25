@@ -7,6 +7,8 @@ import { getAllNotes } from "./utils/local-data";
 import { addNote } from "./utils/local-data";
 import { deleteNote } from "./utils/local-data";
 import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
+import { getUserLogged, putAccessToken } from "./utils/network-data";
 
 class App extends React.Component {
   constructor(props) {
@@ -15,7 +17,30 @@ class App extends React.Component {
     this.state = {
       notes: getAllNotes(),
       authedUser: null,
+      initializing: true,
     };
+
+    this.onLoginSuccess = this.onLoginSuccess.bind(this);
+  }
+
+  async onLoginSuccess({ accessToken }) {
+    putAccessToken(accessToken);
+    const { data } = await getUserLogged();
+    this.setState(() => {
+      return {
+        authedUser: data,
+      };
+    });
+  }
+
+  async componentDidMount() {
+    const { data } = await getUserLogged();
+    this.setState(() => {
+      return {
+        authedUser: data,
+        initializing: false,
+      };
+    });
   }
 
   AddNoteHendler = ({ title, body }) => {
@@ -39,6 +64,10 @@ class App extends React.Component {
   };
 
   render() {
+    if (this.state.initializing) {
+      return null;
+    }
+
     if (this.state.authedUser === null) {
       return (
         <div className="app-container">
@@ -47,7 +76,10 @@ class App extends React.Component {
           </header>
           <main>
             <Routes>
-              <Route path="/*" element={<p>Halaman Login</p>} />
+              <Route
+                path="/*"
+                element={<LoginPage loginSuccess={this.onLoginSuccess} />}
+              />
               <Route path="/register" element={<RegisterPage />} />
             </Routes>
           </main>
