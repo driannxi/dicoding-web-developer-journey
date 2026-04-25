@@ -1,5 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+function NoteNewPageWrapper(props) {
+  const navigate = useNavigate();
+  return <NoteNewPage {...props} navigate={navigate} />;
+}
 
 class NoteNewPage extends React.Component {
   constructor(props) {
@@ -21,6 +26,7 @@ class NoteNewPage extends React.Component {
   noteSubmit = (event) => {
     event.preventDefault();
     this.props.addNotes(this.state);
+    this.props.navigate("/");
   };
 
   render() {
@@ -42,12 +48,12 @@ class NoteNewPage extends React.Component {
           value={this.state.body}
           onChange={this.noteChange}
         ></input>
-        <button type="submit">
-          klikkkk
+        <button className="btn_add_note" type="submit">
+          Add New Note
         </button>
       </form>
     );
   }
 }
 
-export default NoteNewPage;
+export default NoteNewPageWrapper;

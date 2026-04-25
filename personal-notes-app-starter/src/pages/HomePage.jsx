@@ -6,8 +6,8 @@ function HomePage({ notes }) {
   return (
     <section>
       <NoteList notess={notes} />
-      <button>
-        <Link to={`/notes/new`}>add</Link>
+      <button className="btn_add_note">
+        <Link to={`/notes/new`}>ADD NOTE</Link>
       </button>
     </section>
   );

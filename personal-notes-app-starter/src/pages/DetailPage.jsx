@@ -20,10 +20,8 @@ function DetailPage({ deleteNote }) {
         title={note.title}
         body={note.body}
         createdAt={note.createdAt}
+        onDelete={onDeleteHendler}
       />
-      <button type="button" onClick={onDeleteHendler}>
-        klikk
-      </button>
     </div>
   );
 }
