@@ -1,28 +1,30 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FiLogOut } from "react-icons/fi";
+import { FiLogOut, FiSun, FiMoon } from "react-icons/fi";
+import ThemeContext from "../contexts/ThemeContext";
 
 function Navigation({ logout, name }) {
   return (
-    <nav className="navigation">
-      <ul>
-        {/* <li>
-          <Link to="/">
-            <FiHome />
-          </Link>
-        </li>
-        <li>
-          <Link to="/add">
-            <FiPlusCircle />
-          </Link>
-        </li> */}
-        <li>
-          <button className="button-logout" onClick={logout}>
-            {name} <FiLogOut />
-          </button>
-        </li>
-      </ul>
-    </nav>
+    <ThemeContext.Consumer>
+      {({ theme, toggleTheme }) => {
+        return (
+          <nav className="navigation">
+            <ul>
+              <li>
+                <button className="toggle-theme" onClick={toggleTheme}>
+                  {theme === "dark" ? <FiSun /> : <FiMoon />}
+                </button>
+              </li>
+              <li>
+                <button className="button-logout" onClick={logout}>
+                  {name} <FiLogOut />
+                </button>
+              </li>
+            </ul>
+          </nav>
+        );
+      }}
+    </ThemeContext.Consumer>
   );
 }
 

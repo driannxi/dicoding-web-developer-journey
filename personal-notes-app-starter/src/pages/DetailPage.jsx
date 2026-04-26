@@ -6,7 +6,6 @@ import { getNote } from "../utils/network-data";
 function DetailPage({ deleteNote }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  // const note = getNote(id);
 
   const [note, setNote] = useState(null);
   const [initializing, setInitializing] = useState(true);
@@ -36,12 +35,6 @@ function DetailPage({ deleteNote }) {
   if (!note) {
     return <p className="notes-list__empty">Catatan tidak ditemukan</p>;
   }
-
-  // const onDeleteHendler = (e) => {
-  //   e.preventDefault();
-  //   deleteNote(id);
-  //   navigate("/");
-  // };
 
   return (
     <div>

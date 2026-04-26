@@ -23,17 +23,11 @@ class NoteNewPage extends React.Component {
     });
   };
 
-  // noteSubmit = (event) => {
-  //   event.preventDefault();
-  //   this.props.addNotes(this.state);
-  //   this.props.navigate("/");
-  // };
-
   noteSubmit = async (event) => {
-  event.preventDefault();
-  await this.props.addNotes(this.state);
-  this.props.navigate("/");
-};
+    event.preventDefault();
+    await this.props.addNotes(this.state);
+    this.props.navigate("/");
+  };
 
   render() {
     return (
