@@ -5,13 +5,14 @@ import DetailPage from "./pages/DetailPage";
 import NoteNewPage from "./pages/NoteNewPage";
 // import { getAllNotes } from "./utils/local-data";
 // import { addNote } from "./utils/local-data";
-import { deleteNote } from "./utils/local-data";
+// import { deleteNote } from "./utils/local-data";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import { getUserLogged, putAccessToken } from "./utils/network-data";
 import Navigation from "./components/Navigation";
 import { getActiveNotes } from "./utils/network-data";
 import { addNote } from "./utils/network-data";
+import { deleteNote } from "./utils/network-data";
 
 class App extends React.Component {
   constructor(props) {
@@ -106,14 +107,24 @@ class App extends React.Component {
     }
   };
 
-  NoteDeleteHendler = (id) => {
-    deleteNote(id);
+  // NoteDeleteHendler = (id) => {
+  //   deleteNote(id);
 
-    this.setState(() => {
-      return {
-        notes: getAllNotes(),
-      };
-    });
+  //   this.setState(() => {
+  //     return {
+  //       notes: getAllNotes(),
+  //     };
+  //   });
+  // };
+
+  NoteDeleteHendler = async (id) => {
+    const { error } = await deleteNote(id);
+    if (!error) {
+      const { data: notesData } = await getActiveNotes();
+      this.setState({
+        notes: notesData,
+      });
+    }
   };
 
   render() {
