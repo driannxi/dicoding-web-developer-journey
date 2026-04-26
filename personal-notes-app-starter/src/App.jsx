@@ -3,20 +3,22 @@ import HomePage from "./pages/HomePage";
 import { Routes, Route } from "react-router-dom";
 import DetailPage from "./pages/DetailPage";
 import NoteNewPage from "./pages/NoteNewPage";
-import { getAllNotes } from "./utils/local-data";
-import { addNote } from "./utils/local-data";
+// import { getAllNotes } from "./utils/local-data";
+// import { addNote } from "./utils/local-data";
 import { deleteNote } from "./utils/local-data";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import { getUserLogged, putAccessToken } from "./utils/network-data";
 import Navigation from "./components/Navigation";
+import { getActiveNotes } from "./utils/network-data";
+import { addNote } from "./utils/network-data";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      notes: getAllNotes(),
+      notes: [],
       authedUser: null,
       initializing: true,
     };
@@ -25,15 +27,15 @@ class App extends React.Component {
     this.onLogout = this.onLogout.bind(this);
   }
 
-  async onLoginSuccess({ accessToken }) {
-    putAccessToken(accessToken);
-    const { data } = await getUserLogged();
-    this.setState(() => {
-      return {
-        authedUser: data,
-      };
-    });
-  }
+  // async onLoginSuccess({ accessToken }) {
+  //   putAccessToken(accessToken);
+  //   const { data } = await getUserLogged();
+  //   this.setState(() => {
+  //     return {
+  //       authedUser: data,
+  //     };
+  //   });
+  // }
 
   onLogout() {
     this.setState(() => {
@@ -52,16 +54,56 @@ class App extends React.Component {
         initializing: false,
       };
     });
+
+    if (data) {
+      const { error, data: notesData } = await getActiveNotes();
+      if (!error) {
+        this.setState({ notes: notesData });
+      }
+    }
   }
 
-  AddNoteHendler = ({ title, body }) => {
-    addNote({ title, body });
-
+  async onLoginSuccess({ accessToken }) {
+    putAccessToken(accessToken);
+    const { data: userData } = await getUserLogged();
+    const { error, data: notesData } = await getActiveNotes();
     this.setState(() => {
       return {
-        notes: getAllNotes(),
+        authedUser: userData,
+        notes: error ? [] : notesData,
       };
     });
+  }
+
+  // async componentDidMount() {
+  //   const { data } = await getActiveNotes;
+  //   this.setState(() => {
+  //     return {
+  //       notes: data,
+  //     };
+  //   });
+  // }
+
+  // AddNoteHendler = ({ title, body }) => {
+  //   addNote({ title, body });
+
+  //   this.setState(() => {
+  //     return {
+  //       notes: getAllNotes(),
+  //     };
+  //   });
+  // };
+
+  AddNoteHendler = async ({ title, body }) => {
+    const { error } = await addNote({ title, body });
+    if (!error) {
+      const { data: notesData } = await getActiveNotes();
+      this.setState({
+        notes: notesData,
+      });
+    } else {
+      alert("Gagal menambahkan catatan");
+    }
   };
 
   NoteDeleteHendler = (id) => {
